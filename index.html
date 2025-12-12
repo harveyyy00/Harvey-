@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harvey Badan | Portfolio</title>
+
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* Reset */
+*{ margin:0; padding:0; box-sizing:border-box; }
+body{ font-family:'Poppins',sans-serif; background:#0e0e0e; color:#f0f0f0; scroll-behavior:smooth; line-height:1.6; }
+a{text-decoration:none; color:inherit;}
+img{max-width:100%; display:block;}
+
+/* Navbar */
+nav{ position:sticky; top:0; background:rgba(0,0,0,0.85); padding:15px 30px; display:flex; justify-content:space-between; align-items:center; backdrop-filter:blur(6px); z-index:1000;}
+nav ul{ list-style:none; display:flex; gap:24px; }
+nav a{ font-weight:500; transition:0.3s; }
+nav a:hover{ color:#ffd700; }
+
+/* Hero */
+#hero{ min-height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; position:relative; overflow:hidden;}
+#hero-canvas{ position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; }
+.profile-img{ width:150px; height:150px; border-radius:50%; border:4px solid #ffd700; object-fit:cover; margin-bottom:20px; box-shadow:0 0 15px rgba(255,215,0,0.6); position:relative; z-index:1;}
+#hero h1{ font-size:3.5rem; border-right:3px solid #ffd700; overflow:hidden; white-space:nowrap; position:relative; z-index:1;}
+#hero p{ font-size:1.2rem; max-width:600px; margin-top:10px; opacity:0.9; position:relative; z-index:1;}
+#hero .btn{ display:inline-block; margin-top:20px; padding:12px 30px; border:2px solid #ffd700; color:#ffd700; font-weight:500; border-radius:30px; transition:0.3s; position:relative; z-index:1;}
+#hero .btn:hover{ background:#ffd700; color:#0e0e0e; transform:translateY(-3px);}
+.scroll-down{ position:absolute; bottom:30px; font-size:2rem; color:#ffd700; animation:bounce 1.5s infinite; cursor:pointer; z-index:1;}
+@keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(10px);}}
+
+/* Section Titles */
+h2{ font-size:2rem; margin-bottom:20px; color:#ffd700; text-align:center; }
+
+/* About */
+#about p{ max-width:700px; margin:auto; opacity:0.85; text-align:center; }
+
+/* Skills */
+.skills-container{ display:flex; flex-wrap:wrap; justify-content:center; gap:30px; margin-top:30px; }
+.skill-card{ background:rgba(255,255,255,0.05); padding:20px; border-radius:12px; width:150px; text-align:center; transition:0.3s, transform 0.5s; }
+.skill-card:hover{ background:rgba(255,255,255,0.15); transform:translateY(-5px); }
+.skill-card img{ width:50px; height:50px; margin-bottom:10px; }
+.skill-bar{ width:100%; background: rgba(255,255,255,0.1); border-radius: 20px; margin-top:10px; overflow:hidden; }
+.skill-bar-fill{ height:10px; width:0; background:#ffd700; border-radius:20px; transition: width 1.5s ease-in-out; }
+
+/* Projects */
+.projects-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:20px; margin-top:30px; }
+.project-card{ position:relative; background:rgba(255,255,255,0.05); padding:20px; border-radius:15px; transition: transform 0.4s, box-shadow 0.4s; opacity:0; transform:translateY(30px);}
+.project-card.visible{ opacity:1; transform:translateY(0);}
+.project-card:hover{ transform:translateY(-10px); box-shadow:0 15px 25px rgba(255,215,0,0.5);}
+.project-card h3{ margin-bottom:10px; }
+.project-card p{ opacity:0.85; font-size:0.95rem; }
+.project-card iframe{ transition: transform 0.3s ease; border-radius:8px; }
+.project-card iframe:hover{ transform: scale(1.05); }
+.tags{ display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; justify-content:center; }
+.tag{ background:#ffd700; color:#0e0e0e; padding:3px 10px; font-size:0.8rem; border-radius:20px; }
+
+/* Contact */
+.socials{ display:flex; justify-content:center; gap:20px; margin-top:20px; }
+.socials a{ font-size:1.8rem; transition:0.3s; }
+.socials a:hover{ color:#ffd700; transform:scale(1.2); }
+
+/* Footer */
+footer{ text-align:center; padding:20px 0; opacity:0.6; font-size:0.9rem; }
+
+/* Animations */
+.visible{ opacity:1; transform:translateY(0); transition: all 1s ease; }
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <div style="font-weight:600;">Harvey</div>
+  <ul>
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero -->
+<section id="hero">
+  <canvas id="hero-canvas"></canvas>
+  <img class="profile-img" src="https://scontent.fdvo2-1.fna.fbcdn.net/v/t39.30808-6/517366296_1765015534406869_4976680811564762316_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGX-rPqzRB3i2eK8qKYx4B8gTvWn__4o_yBO9af__ij_Ih3vrA8BtuDhNan5SqUohpUtDmjF2xq87NbwsIKvhEh&_nc_ohc=EI0bWIuFlioQ7kNvwEZ_fr8&_nc_oc=AdnkBFOoKBkRxtX53PhYgCFuImejdTp06KSaEr2KnEOQG5VW_0GMco3kzivId7LL-fE&_nc_zt=23&_nc_ht=scontent.fdvo2-1.fna&_nc_gid=TOutV84-J9apAZJvSIynig&oh=00_AflqF7r7bHMgL2fbYs0mwHuajUHMz6FB1BYHA3W6fFZmKQ&oe=69420E6A" alt="Harvey Badan">
+  <h1 id="hero-text"></h1>
+  <p>A passionate learner exploring web development, design, and coding through small projects and experiments.</p>
+  <a href="#projects" class="btn">View My Work</a>
+  <div class="scroll-down"><i class="fas fa-angle-down"></i></div>
+</section>
+
+<!-- About -->
+<section id="about" style="background: rgba(0,0,0,0.7);">
+  <h2>About Me</h2>
+  <p>Hello! I’m Harvey — an active, creative individual who enjoys creating, learning, and sharing ideas. I’m currently exploring web development and building small apps and pages.</p>
+</section>
+
+<!-- Skills -->
+<section id="skills" style="background: rgba(0,0,0,0.7);">
+  <h2>My Skills</h2>
+  <div class="skills-container">
+    <div class="skill-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/732/732212.png" alt="HTML">
+      <div>HTML</div>
+      <div class="skill-bar"><div class="skill-bar-fill" data-skill="90"></div></div>
+    </div>
+    <div class="skill-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="CSS">
+      <div>CSS</div>
+      <div class="skill-bar"><div class="skill-bar-fill" data-skill="85"></div></div>
+    </div>
+    <div class="skill-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png" alt="JavaScript">
+      <div>JavaScript</div>
+      <div class="skill-bar"><div class="skill-bar-fill" data-skill="80"></div></div>
+    </div>
+    <div class="skill-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968350.png" alt="Python">
+      <div>Python</div>
+      <div class="skill-bar"><div class="skill-bar-fill" data-skill="75"></div></div>
+    </div>
+    <div class="skill-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/5968/5968705.png" alt="Canva">
+      <div>Canva</div>
+      <div class="skill-bar"><div class="skill-bar-fill" data-skill="85"></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Projects -->
+<section id="projects" style="background: rgba(0,0,0,0.7);">
+  <h2>Projects</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <h3>Infographic Design Project</h3>
+      <p>Created using Canva to showcase visual communication skills and design sense.</p>
+      <div class="tags"><div class="tag">Canva</div></div>
+      <div style="position: relative; width: 100%; height: 0; padding-top: 75%; overflow: hidden; margin-top:10px;">
+        <iframe loading="lazy" style="position:absolute;width:100%;height:100%;border:none;"
+        src="https://www.canva.com/design/DAGrRTMmNp8/jIMBuyOUm_7FcUbD4Grqzw/view?embed"></iframe>
+      </div>
+    </div>
+    <div class="project-card">
+      <h3>Banking System</h3>
+      <p>A simple banking system project showcasing account management, deposits, withdrawals, and transaction tracking.</p>
+      <div class="tags"><div class="tag">Python</div><div class="tag">Backend</div></div>
+    </div>
+    <div class="project-card">
+      <h3>My Portfolio Website</h3>
+      <p>Personal portfolio showcasing my skills and projects. Built with HTML, CSS, JS.</p>
+      <div class="tags"><div class="tag">HTML</div><div class="tag">CSS</div><div class="tag">JS</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" style="background: rgba(0,0,0,0.7);">
+  <h2>Contact Me</h2>
+  <div class="socials">
+    <a href="https://www.facebook.com/harvey.badan"><i class="fab fa-facebook"></i></a>
+    <a href="https://www.threads.com/@hrvybdn"><i class="fab fa-threads"></i></a>
+    <a href="https://www.instagram.com/hrvybdn"><i class="fab fa-instagram"></i></a>
+    <a href="mailto:harveybadan@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
+  </div>
+</section>
+
+<footer>&copy; 2025 Harvey Badan. All Rights Reserved.</footer>
+
+<script>
+// Intersection Observer for fade-in
+const sections = document.querySelectorAll('section, .project-card');
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){entry.target.classList.add('visible'); observer.unobserve(entry.target);}});
+},{threshold:0.2});
+sections.forEach(section=>observer.observe(section));
+
+// Typewriter
+const heroText = "Hey, I'm Harvey Badan";
+let i = 0;
+function typeWriter(){
+if(i < heroText.length){document.getElementById("hero-text").innerHTML+=heroText.charAt(i); i++; setTimeout(typeWriter,100);}
+else{document.getElementById("hero-text").style.borderRight="none";}}
+const heroObserver = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{if(entry.isIntersecting){typeWriter(); heroObserver.unobserve(entry.target);}});
+},{threshold:0.5});
+heroObserver.observe(document.getElementById("hero"));
+
+// Scroll-down
+document.querySelector('.scroll-down').addEventListener('click',()=>{document.getElementById('about').scrollIntoView({behavior:'smooth'});});
+
+// Parallax
+window.addEventListener('scroll',()=>{const scrolled=window.pageYOffset;document.getElementById('hero').style.backgroundPositionY=-(scrolled*0.3)+'px';});
+
+// Skill bars
+const skillBars = document.querySelectorAll('.skill-bar-fill');
+window.addEventListener('scroll',()=>{
+skillBars.forEach(bar=>{
+const rect=bar.getBoundingClientRect();
+if(rect.top<window.innerHeight-50){bar.style.width=bar.getAttribute('data-skill')+'%';}});});
+
+// Particle background
+const canvas = document.getElementById('hero-canvas'); const ctx = canvas.getContext('2d');
+canvas.width=window.innerWidth; canvas.height=window.innerHeight;
+let particlesArray; const colors=['#ffd700','#ffffff','#fffae3'];
+class Particle{constructor(){this.x=Math.random()*canvas.width; this.y=Math.random()*canvas.height; this.size=Math.random()*3+1; this.speedX=Math.random()*1-0.5; this.speedY=Math.random()*1-0.5;}
+update(){this.x+=this.speedX; this.y+=this.speedY; if(this.x<0)this.x=canvas.width; if(this.x>canvas.width)this.x=0; if(this.y<0)this.y=canvas.height; if(this.y>canvas.height)this.y=0;}
+draw(){ctx.fillStyle=colors[Math.floor(Math.random()*colors.length)]; ctx.beginPath(); ctx.arc(this.x,this.y,this.size,0,Math.PI*2); ctx.fill();}}
+function initParticles(){particlesArray=[]; const numberOfParticles=Math.floor(canvas.width/10); for(let i=0;i<numberOfParticles;i++){particlesArray.push(new Particle());}}
+initParticles();
+function animateParticles(){ctx.clearRect(0,0,canvas.width,canvas.height); particlesArray.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(animateParticles);}
+animateParticles();
+window.addEventListener('resize',()=>{canvas.width=window.innerWidth; canvas.height=window.innerHeight; initParticles();});
+</script>
+
+</body>
+</html>
